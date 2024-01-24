@@ -1,6 +1,6 @@
 class Api::V1::ReviewsController < ApplicationController
   before_action :set_review, only: %i[show destroy]
-  before_action :set_user, only: %i[create destroy]
+  before_action :set_user, only: %i[create]
 
   def index
     review = Review.all.order(created_at: :desc)
@@ -26,9 +26,8 @@ class Api::V1::ReviewsController < ApplicationController
   end
 
   def destroy
-    if @user.email == @review.email
-      @review&.destroy
-      render json: { message: "Review deleted!"}
+    @review&.destroy
+    render json: { message: "Review deleted!"}
   end
 
   private

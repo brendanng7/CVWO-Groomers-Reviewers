@@ -53,7 +53,7 @@ const Form: React.FC = () => {
     const createReview = (payload: Payload) => {
         return new Promise<void>((resolve, reject) => {
             axios
-                .post(`${BASE_URL}api/v1/reviews/create`, payload)
+                .post(`${BASE_URL}api/v1/reviews`, payload)
                 .then((response) => {
                     console.log(response);
                     resolve()
@@ -64,7 +64,6 @@ const Form: React.FC = () => {
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const BASE_URL = "http://localhost:3000/";
         const data = new FormData(event.currentTarget);
         
         const payload: Payload = {

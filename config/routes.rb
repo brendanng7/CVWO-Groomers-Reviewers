@@ -8,15 +8,22 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get 'comments/index'
-      get 'comments/create'
-      get 'comments/show'
-      get 'comments/destroy'
+      resources :reviews, only: [:index, :create, :show, :destroy] do
+        resources :comments, only: [:index, :create]
+      end
+      resources :comments, only: [:update, :destroy]
+      # resources :comments, only: [:index, :create, :update, :destroy]
+      # resources :reviews, only: [:index, :create, :show, :destroy]
 
-      get 'reviews/index'
-      post 'reviews/create'
-      get '/show/:id', to: 'reviews#show'
-      delete '/destroy/:id', to: 'users#destroy'
+      # get 'comments/index'
+      # post 'comments/create'
+      # put 'comments/update/:id', to: 'comments#update'
+      # # delete 'comments/destroy/:id'
+
+      # get 'reviews/index'
+      # post 'reviews/create'
+      # get 'reviews/show/:id', to: 'reviews#show'
+      # delete 'reviews/destroy/:id', to: 'reviews#destroy'
     end
   end
 

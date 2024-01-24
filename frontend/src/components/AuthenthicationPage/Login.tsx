@@ -74,32 +74,6 @@ export default function SignIn() {
     loginUser(payload);
     
   }
-  //   fetch(url, {
-  //     method: "POST", 
-  //     headers: {
-  //       "X-CSRF-Token": token!,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       user: {
-  //         username: data.get('username'),
-  //         password: data.get('password'),
-  //       }
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         const username = data.get('username');
-  //         // if (setUser !== undefined) {
-  //         //   setUser(username);
-  //         // } 
-  //         return response.json();
-  //       }
-  //       throw new Error("Network response was not ok.");
-  //     })
-  //     .then((response) => navigate('/session'))
-  //     .catch((error) => console.log(error.message));
-  // };
 
   return (
       <Container component="main" maxWidth="xs">

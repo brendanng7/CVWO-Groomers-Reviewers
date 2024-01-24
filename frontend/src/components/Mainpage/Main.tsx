@@ -33,7 +33,7 @@ function Main() {
 
         new Promise<void>((resolve, reject) => {
             axios
-                .get(`${BASE_URL}api/v1/reviews/index`)
+                .get(`${BASE_URL}api/v1/reviews`)
                 .then((response) => {
                     console.log(response);
                     setCardList(response.data);
