@@ -1,24 +1,56 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# CVWO Groomers & Reviewers
 
-Things you may want to cover:
+Welcome to the CVWO Groomers & Reviewers project! This application is designed to provide a platform for users to review and rate groomers. Follow the simple installation steps below to get started.
 
-* Ruby version
+## Installation
 
-* System dependencies
+### 1. Clone the Repository
 
-* Configuration
+```bash
+git clone https://github.com/brendanng7/CVWO-Groomers-Reviewers.git
+2. Install Backend Dependencies
+Navigate to the project directory and install the backend dependencies using Bundler.
 
-* Database creation
+bash
+Copy code
+cd CVWO-Groomers-Reviewers
+bundle install
+3. Devise Setup
+Run the following command to set up Devise.
 
-* Database initialization
+bash
+Copy code
+rails g devise:install
+In the config/initializers/devise.rb file, add the following code after running rails g devise:install:
 
-* How to run the test suite
+ruby
+Copy code
+config.jwt do |jwt|
+  jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
+end
+4. Start the Rails Server
+Ensure that the server is hosted on localhost:3000.
 
-* Services (job queues, cache servers, search engines, etc.)
+bash
+Copy code
+rails s
+5. Install Frontend Dependencies
+Open a new terminal, navigate to the frontend directory, and install the frontend dependencies.
 
-* Deployment instructions
+bash
+Copy code
+cd frontend
+npm install --force
+6. Start the Frontend
+Run the following command to start the frontend.
 
-* ...
+bash
+Copy code
+npm start
+Usage
+
+Visit http://localhost:3001 in your browser to access the application. Explore and enjoy the features of CVWO Groomers & Reviewers!
+
+Feel free to contribute and provide feedback. Happy grooming! 🐾
