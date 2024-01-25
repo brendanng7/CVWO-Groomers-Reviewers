@@ -34,14 +34,20 @@ config.jwt do |jwt|
   jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
 end
 ```
-4. Start the Rails Server
+4. Setup the database.
+```bash
+Copy code
+rails db:migrate
+```
+
+5. Start the Rails Server
 Ensure that the server is hosted on localhost:3000.
 
 ```bash
 Copy code
 rails s
 ```
-5. Install Frontend Dependencies
+6. Install Frontend Dependencies
 Open a new terminal, navigate to the frontend directory, and install the frontend dependencies.
 
 ```bash
@@ -49,7 +55,7 @@ Copy code
 cd frontend
 npm install --force
 ```
-6. Start the Frontend
+7. Start the Frontend
 Run the following command to start the frontend.
 
 ```bash
