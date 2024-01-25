@@ -39,15 +39,36 @@ end
 Copy code
 rails db:migrate
 ```
+5. Delete credentials.yml.enc in config file.
 
-5. Start the Rails Server
+6. Add in devise JWT Secret Key
+```bash
+Copy code
+rails credentials:edit
+rails secret
+EDITOR=nano rails credentials:edit
+```
+Copy and add the secret in. Ensure that you don't use tab and use two spacebars.
+```bash
+# aws:
+#   access_key_id: 123
+#   secret_access_key: 345
+
+# Used as the base secret for all MessageVerifiers in Rails, including the one protecting cookies.
+secret_key_base: f03520e50eb5f022fba6d94246772c12f49240cee256ff4ca29a444e6123e4ca3195c28a20be72444ba6092f5904836a422338227016c94ec8c281fe1a230f40
+
+devise:
+  jwt_secret_key: <PASTE SECRET KEY HERE>
+```
+
+7. Start the Rails Server
 Ensure that the server is hosted on localhost:3000.
 
 ```bash
 Copy code
 rails s
 ```
-6. Install Frontend Dependencies
+8. Install Frontend Dependencies
 Open a new terminal, navigate to the frontend directory, and install the frontend dependencies.
 
 ```bash
@@ -55,7 +76,7 @@ Copy code
 cd frontend
 npm install --force
 ```
-7. Start the Frontend
+9. Start the Frontend
 Run the following command to start the frontend.
 
 ```bash
