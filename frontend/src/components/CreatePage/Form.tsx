@@ -5,6 +5,7 @@ import { getCsrfToken } from '../helpers/csrfUtils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../helpers/AuthProvider';
 import axios from 'axios';
+import { BASE_URL } from '../helpers/BaseURL';
 
 //might implement interface
 
@@ -12,8 +13,8 @@ const Form: React.FC = () => {
     const {appState, setAppState} = useAuth();
     const [rating, setRating] = React.useState<number | null>(null);
     const [animalType, setAnimalType] = React.useState<string[]>([]);
+    const [price, setPrice] = React.useState('0');
     const navigate = useNavigate();
-    const BASE_URL = "http://localhost:3000/";
 
     const handleChange = (event: SelectChangeEvent<typeof animalType>) => {
         const {
@@ -23,7 +24,7 @@ const Form: React.FC = () => {
           // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
         );
-      };
+    };
 
     const stripHtmlEntities = (value: FormDataEntryValue | null | string) => {
         if (value === null) {
@@ -75,7 +76,7 @@ const Form: React.FC = () => {
                 address: stripHtmlEntities(data.get('address'))!,
                 nearest_mrt: stripHtmlEntities(data.get('nearest_mrt'))!,
                 rating: rating!,
-                price: 20.0,
+                price: parseFloat(price),
                 animal_type: animalType
             }
         };
@@ -91,7 +92,12 @@ const Form: React.FC = () => {
 
 
     return (
+        <Box sx={{backgroundColor: '#AACCBB', display: 'flex', height: '100vh', alignItems:'start'}}>
+        <Button sx={{margin: 2}} href='/session'>Back</Button>
         <Stack 
+            mt={3}
+            mx={'auto'}
+            width="60%"
             component={'form'}
             onSubmit={onSubmit}
         >
@@ -100,23 +106,29 @@ const Form: React.FC = () => {
                 label='Title'
                 name='title'
                 required
+                sx={{backgroundColor: 'white',borderRadius: '8px', my: 1}}
             /> 
             <TextField 
                 id='description'
                 label='Description'
                 name='description'
+                multiline
+                rows={5}
+                sx={{backgroundColor: 'white',borderRadius: '8px', my: 1}}
             /> 
             <TextField 
                 id='address'
                 label='Address'
                 name='address'
                 required
+                sx={{backgroundColor: 'white',borderRadius: '8px', my: 1}}
             /> 
             <TextField 
                 id='nearest_mrt'
                 label='Nearest MRT'
-                name='nearest_mrt' // will consider using the autocomplete MUI
-                required // might want to change to only specific MRT locations, dropdown
+                name='nearest_mrt'
+                required
+                sx={{backgroundColor: 'white',borderRadius: '8px', my: 1}}
             /> 
             <Box>
                 <Typography component="legend">Rating</Typography>
@@ -128,7 +140,14 @@ const Form: React.FC = () => {
                     }}
                 />
             </Box>
-            <FormControl sx={{ m: 1, width: 300 }}>
+            <TextField 
+                required
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                label='Price' 
+                name='price' 
+                sx={{width:"30%", backgroundColor: 'white',borderRadius: '8px'}}/>
+            <FormControl sx={{ my: 1, width: 300, backgroundColor: 'white',borderRadius: '8px'}}>
                 <InputLabel id="animal-type-multiple-chip-label">Animal Type</InputLabel>
                 <Select
                 labelId="animal-type-multiple-chip-label"
@@ -150,6 +169,7 @@ const Form: React.FC = () => {
             </FormControl>
             <Button type='submit' variant='contained' color='primary'>Submit</Button>
         </Stack>
+        </Box>
     )
 };
 

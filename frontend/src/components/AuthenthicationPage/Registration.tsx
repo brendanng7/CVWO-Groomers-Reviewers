@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,40 +11,19 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import { useNavigate } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { getCsrfToken } from '../helpers/csrfUtils';
 import axios from 'axios';
-import { SignUpState, AuthProvider, useAuth } from '../helpers/AuthProvider';
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Groomers Reviewers
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+import { SignUpState, useAuth } from '../helpers/AuthProvider';
+import { BASE_URL } from '../helpers/BaseURL';
 
 export default function SignUp() {
-
   const {appState, setAppState} = useAuth();
-
   const navigate = useNavigate();
-  const BASE_URL = "http://localhost:3000/";
 
   function registerUser(payload:SignUpState) {
     return new Promise((resolve, reject) => {
         axios
             .post(`${BASE_URL}users`, payload)
             .then((response) => {
-                // commit("setUserInfo", response);
                 setAppState({
                   auth_token: response.headers.authorization,
                   user: response.data.user,
@@ -65,7 +42,6 @@ export default function SignUp() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const token = getCsrfToken();
     const payload: SignUpState = {
       user: {
         email: data.get('sign_up_email')?.toString(),
@@ -75,35 +51,8 @@ export default function SignUp() {
 
     registerUser(payload);
   }
-//     fetch(url, {
-//       method: "POST",
-//       headers: {
-//         "X-CSRF-Token": token!,
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         user: {
-//           first_name: data.get('firstName'),
-//           last_name: data.get('lastName'),
-//           username: data.get('username'),
-//           password: data.get('password'),
-//           password_confirmation: data.get('password'),
-//           email: data.get('email')
-//         }
-//       }),
-//     }).then((response) => {
-//       if (response.ok) {
-//         return response.json();
-//       }
-//       throw new Error("Network response was not ok.");
-//     })
-//     .then((response) => navigate(`/session`))
-//     .catch((error) => console.log(error.message));
-// };
-
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -122,27 +71,6 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              {/* <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -153,7 +81,7 @@ export default function SignUp() {
                   autoComplete="email"
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -162,7 +90,7 @@ export default function SignUp() {
                   name="sign_up_username"
                   autoComplete="username"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -174,12 +102,6 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -198,8 +120,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   );
 }

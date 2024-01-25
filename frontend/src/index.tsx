@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { AuthProvider } from './components/helpers/AuthProvider';
-
+import './assets/fonts/fonts.css';
 
 
 const root = createRoot(document.getElementById('root')!);

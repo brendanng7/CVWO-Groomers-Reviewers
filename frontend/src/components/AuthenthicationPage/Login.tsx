@@ -13,36 +13,20 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import { useNavigate } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getCsrfToken } from '../helpers/csrfUtils';
 import axios from 'axios';
 import { LoginState, useAuth } from '../helpers/AuthProvider';
-// import { SetUserContext } from '../UserContext';
-
-// function Copyright(props: any) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Groomers Reviewers
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
+import { BASE_URL } from '../helpers/BaseURL';
 
 export default function SignIn() {
   const {appState, setAppState} = useAuth();
   const navigate = useNavigate();
-  const BASE_URL = "http://localhost:3000/";
   
   function loginUser(payload: LoginState) {
     return new Promise((resolve, reject) => {
         axios
             .post(`${BASE_URL}users/sign_in`, payload)
             .then((response) => {
-                // commit("setUserInfo", response);
                 console.log(response);
                 setAppState({
                   auth_token: response.headers.authorization,
@@ -113,10 +97,6 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -126,20 +106,14 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
   );
 }

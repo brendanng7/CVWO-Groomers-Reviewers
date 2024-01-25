@@ -1,22 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ResponsiveAppBar from "../Navbar";
 import Hero from "./Hero";
+import { Box, Button } from "@mui/material";
 
 function Home() {
+    const navigate = useNavigate();
+
     return (
-        <div className="page-white">
+        <Box sx={{backgroundColor: 'white'}}>
             <ResponsiveAppBar />
-            <div className="vh-90 d-flex align-items-center justify-content-center">
-                <div className="jumbotron jumbotron-fluid flex-column">
+            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "15%"}}>
+                <Box>
                     <Hero />
-                    <div className="d-flex justify-content-center m-4">
-                        <Link role="button" to={"/register"} className="btn custom-button page-black">Register</Link>
-                        <Link role="button" to={"/login"} className="btn custom-button page-black">Login</Link>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    <Box sx={{display: 'flex', justifyContent: 'center', margin: 4}}>
+                        <Button variant="contained" sx={{margin: 1, width: 100, backgroundColor: '#B17A02'}} onClick={() => navigate('/register')}>register</Button>
+                        <Button variant="contained" sx={{margin: 1, width: 100, backgroundColor: '#B17A02'}} onClick={() => navigate('/login')}>login</Button>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
     );
 };
 
